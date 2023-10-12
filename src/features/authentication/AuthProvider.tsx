@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }: { children?: ReactNode }) => {
     const login = useCallback(async (user: string, password: string): Promise<boolean> => {
         try {
             const response = await axios.post<LoginResponse>(
-                "http://localhost:5157/api/user/login",
+                "/api/user/login",
                 { userName: user, password: password },
                 {
                     withCredentials: true
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }: { children?: ReactNode }) => {
     }, [navigate, setUser])
 
     const logout = useCallback(async (): Promise<boolean> => {
-        const response = await axios.post<LoginResponse>("http://localhost:5157/api/user/logout")
+        const response = await axios.post<LoginResponse>("/api/user/logout")
         if (response.status != 200)
             return false
 

@@ -28,7 +28,7 @@ export const operationsSlice = createSlice({
         builder.addCase(fetchParamForOperation.fulfilled, (state, action) => {
             const newOperations = state.operations.map((op) => 
                 (op.id === action.meta.arg.id) 
-                    ? {...op, params: [action.payload.age]}
+                    ? {...op, params: [action.payload]}
                     : op
                 )
             state.operations = newOperations
@@ -57,7 +57,7 @@ export const fetchParamForOperation = createAsyncThunk(
     'fetchParamForOperation',
     async (params: FetchParamForOperationParams, thunkAPI) => {
         thunkAPI.dispatch(setLoading(true))
-        const response = (await axios.get(`https://api.agify.io/?name=${params.name}`)) as AxiosResponse<{ age: number }>
+        const response = (await axios.get(`/api/homecontrol/countChars?text=${params.name}`)) as AxiosResponse<number>
         thunkAPI.dispatch(setLoading(false))
         return response.data
     }
