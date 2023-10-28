@@ -21,7 +21,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({ login: async () => false, logout: async () => false })
 
 export const AuthProvider = ({ children }: { children?: ReactNode }) => {
-    const [user, setUser] = useLocalStorage("user", undefined)
+    const [user, setUser] = useLocalStorage<LoginResponse>("user", { userName: "", id: "", success: false})
     const navigate = useNavigate()
     const login = useCallback(async (user: string, password: string): Promise<boolean> => {
         try {
